@@ -1,8 +1,5 @@
 <div style="text-align: center;">
-  <h1>Welcome to todos!</h1>
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-  />
+    <h1>Welcome to Todos!</h1>
+    <my-nx-todos [todos]="todos"></my-nx-todos>
 </div>
-<div>Message: {{ hello$ | async | json }}</div>
+<button id="add-todo" (click)="addTodo()">Add Todo</button>

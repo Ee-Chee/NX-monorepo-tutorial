@@ -1,13 +1,26 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Message } from '@my-nx/api-interfaces';
+import { Todo } from '@my-nx/api-interfaces';
 
 @Component({
-  selector: 'my-nx-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+    selector: 'my-nx-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  hello$ = this.http.get<Message>('/api/hello');
-  constructor(private http: HttpClient) {}
+    todos: Todo[] = [{ title: 'Todo 1' }, { title: 'Todo 2' }];
+
+    constructor(private http: HttpClient) {
+        this.fetch();
+    }
+
+    fetch() {
+        this.http.get<Todo[]>('/api/todos').subscribe((t) => (this.todos = t));
+    }
+
+    addTodo() {
+        this.http.post('/api/addTodo', {}).subscribe(() => {
+            this.fetch();
+        });
+    }
 }
